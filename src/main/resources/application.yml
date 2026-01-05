@@ -9,3 +9,4 @@ langchain4j:
       model-name: ${AI_MODEL_NAME}
       log-requests: ${AI_LOG_REQUESTS}
       log-responses: ${AI_LOG_RESPONSES}
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
