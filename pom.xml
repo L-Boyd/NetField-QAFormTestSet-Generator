@@ -52,6 +52,14 @@
             <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
             <version>1.10.0-beta18</version>
         </dependency>
+
+        <!--knife4j-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
