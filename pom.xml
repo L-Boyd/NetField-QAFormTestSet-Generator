@@ -60,6 +60,13 @@
             <version>4.4.0</version>
         </dependency>
 
+        <!--langchain4j for declarative ai service-->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-spring-boot-starter</artifactId>
+            <version>1.10.0-beta18</version>
+        </dependency>
+
     </dependencies>
 
     <build>
