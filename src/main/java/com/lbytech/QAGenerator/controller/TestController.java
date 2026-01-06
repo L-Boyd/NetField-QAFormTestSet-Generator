@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/test")
@@ -35,6 +36,12 @@ public class TestController {
     @PostMapping("/chat-assistant")
     public String testChatAssistant(@RequestBody ChatForm form) {
         return testAiAssistant.chat(form.getMessage());
+    }
+
+    @Operation(summary = "测试AiService的chatByStream流式响应")
+    @PostMapping(value = "/chat-assistant-stream",produces = "text/html;charset=UTF-8")
+    public Flux<String> testChatAssistantStream(@RequestBody ChatForm form) {
+        return testAiAssistant.chatByStream(form.getMessage());
     }
 
 }
