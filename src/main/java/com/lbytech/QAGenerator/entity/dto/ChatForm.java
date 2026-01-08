@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class ChatForm {
 
-    //String id;
+    private String id;
 
     private String message;
 }
