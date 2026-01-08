@@ -7,10 +7,4 @@ import java.util.List;
 
 public interface IMySQLChatMemoryService extends IService<ChatMemoryPO> {
 
-    /**
-     * 根据会话ID获取消息列表
-     * @param sessionId 会话ID
-     * @return 消息列表
-     */
-    List<ChatMemoryPO> getMessagesBySessionId(String sessionId);
 }

@@ -11,10 +11,4 @@ import java.util.List;
 @Service
 public class MySQLChatMemoryServiceImpl extends ServiceImpl<MySQLChatMemoryMapper, ChatMemoryPO> implements IMySQLChatMemoryService {
 
-    @Override
-    public List<ChatMemoryPO> getMessagesBySessionId(String sessionId) {
-        return this.lambdaQuery()
-                .eq(ChatMemoryPO::getSessionId, sessionId)
-                .list();
-    }
 }

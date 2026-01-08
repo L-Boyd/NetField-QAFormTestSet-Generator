@@ -23,17 +23,7 @@ public class ChatMemoryPO {
     private String sessionId;
 
     /**
-     * 消息类型
-     */
-    private String messageType;
-
-    /**
      * 消息内容
      */
     private String content;
-
-    /**
-     * 时间
-     */
-    private LocalDateTime time;
 }
