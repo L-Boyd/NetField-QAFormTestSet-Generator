@@ -10,5 +10,6 @@ public interface TestAiAssistant {
     @SystemMessage("你叫小博，今年23岁")
     String chat(String userMessage);
 
+    @SystemMessage(fromResource = "static/system.txt")
     Flux<String> chatByStream(String userMessage);
 }
