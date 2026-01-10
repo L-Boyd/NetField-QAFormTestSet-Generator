@@ -1,9 +1,15 @@
 package com.lbytech.QAGenerator.config;
 
+import com.lbytech.QAGenerator.properties.PGEmbeddingStoreProperties;
 import com.lbytech.QAGenerator.repository.MySQLChatMemoryStore;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.rag.content.retriever.ContentRetriever;
+import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
+import dev.langchain4j.store.embedding.EmbeddingStore;
+import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +22,12 @@ public class AssistantConfig {
 
     @Autowired
     private MySQLChatMemoryStore mySQLChatmemoryStore;
+
+    @Autowired
+    private PGEmbeddingStoreProperties embeddingStoreProperties;
+
+    @Autowired
+    private EmbeddingModel embeddingModel;
 
     @Bean
     // 构建ChatMemoryProvider对象，前端传memoryId，langchain4j根据memoryId匹配话记忆对象，没匹配到就会用get方法来获取chatMemory
@@ -32,4 +44,27 @@ public class AssistantConfig {
         };
         return chatMemoryProvider;
     }
+
+    /**
+     * 构建向量数据库操作对象
+     *
+     * @return embeddingStore
+     */
+    @Bean
+    public EmbeddingStore embeddingStore() {
+
+        // 构建向量数据库操作对象
+        EmbeddingStore embeddingStore = PgVectorEmbeddingStore.builder()
+                .host(embeddingStoreProperties.getHost())
+                .port(embeddingStoreProperties.getPort())
+                .database(embeddingStoreProperties.getDatabase())
+                .user(embeddingStoreProperties.getUsername())
+                .password(embeddingStoreProperties.getPassword())
+                .table(embeddingStoreProperties.getTable())
+                .dimension(embeddingModel.dimension()) // 向量维度
+                .build();
+
+        return embeddingStore;
+    }
+
 }
