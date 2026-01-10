@@ -59,6 +59,7 @@ langchain4j:
       model-name: ${AI_EMBEDDING_MODEL_NAME}
       log-requests: ${AI_LOG_REQUESTS}
       log-responses: ${AI_LOG_RESPONSES}
+      max-segments-per-batch: 10
 
 lbytech:
   rag:
