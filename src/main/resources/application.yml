@@ -2,7 +2,7 @@ spring:
   application:
     name: NetField-QAFormTestSet-Generator
   datasource:
-    url: jdbc:mysql://localhost:3306/qa_generator?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/qa_generator?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -60,6 +60,7 @@ langchain4j:
       log-requests: ${AI_LOG_REQUESTS}
       log-responses: ${AI_LOG_RESPONSES}
       max-segments-per-batch: 10
+      dimensions: 1024
 
 lbytech:
   rag:
@@ -70,3 +71,5 @@ lbytech:
       username: ${PG_USERNAME:postgres}
       password: ${PG_PASSWORD:password}
       table: qa_embeddings
+  searchapi:
+    api-key: ${SEARCHAPI_API_KEY}
