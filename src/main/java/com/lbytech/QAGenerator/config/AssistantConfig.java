@@ -67,4 +67,19 @@ public class AssistantConfig {
         return embeddingStore;
     }
 
+    /**
+     * 构建向量数据库检索对象
+     *
+     * @param embeddingStore 向量数据库操作对象
+     * @return contentRetriever
+     */
+    @Bean
+    public ContentRetriever contentRetriever(EmbeddingStore embeddingStore) {   // spring里要用IOC容器内的对象可以直接声明
+        return EmbeddingStoreContentRetriever.builder()
+                .embeddingStore(embeddingStore)
+                .minScore(0.5)  // 最小的可选入的预选相似度值
+                .maxResults(3)  // 最多可查询出的片段
+                .embeddingModel(embeddingModel)
+                .build();
+    }
 }
