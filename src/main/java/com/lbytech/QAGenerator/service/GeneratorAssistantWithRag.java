@@ -10,9 +10,10 @@ import reactor.core.publisher.Flux;
 @AiService(
         wiringMode = AiServiceWiringMode.EXPLICIT,
         streamingChatModel = "openAiStreamingChatModel",
-        chatMemoryProvider = "chatMemoryProvider"
+        chatMemoryProvider = "chatMemoryProvider",
+        contentRetriever = "contentRetriever"
 )
-public interface GeneratorAssistant {
+public interface GeneratorAssistantWithRag {
 
     @SystemMessage(fromResource = "static/system.txt")
     Flux<String> chatByStream(@MemoryId String id, @UserMessage String userMessage);
