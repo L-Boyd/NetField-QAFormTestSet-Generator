@@ -1,6 +1,7 @@
 package com.lbytech.QAGenerator.controller;
 
 import com.lbytech.QAGenerator.entity.dto.ChatForm;
+import com.lbytech.QAGenerator.repository.MySQLChatMemoryStore;
 import com.lbytech.QAGenerator.service.GeneratorAssistant;
 import com.lbytech.QAGenerator.service.GeneratorAssistantWithRag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +27,9 @@ public class GeneratorController {
     @Autowired
     private GeneratorAssistantWithRag generatorAssistantWithRag;
 
+    @Autowired
+    private MySQLChatMemoryStore mySQLChatMemoryStore;
+
     @Operation(summary = "测试集生成（普通）")
     @PostMapping(value = "/generate",produces = "text/html;charset=UTF-8")
     public Flux<String> gengerate(@RequestBody ChatForm form) {
@@ -36,6 +40,13 @@ public class GeneratorController {
     @PostMapping(value = "/generateWithRag",produces = "text/html;charset=UTF-8")
     public Flux<String> gengerateWithRg(@RequestBody ChatForm form) {
         return generatorAssistantWithRag.chatByStream(form.getId(), form.getMessage());
+    }
+
+    @Operation(summary = "删除聊天记录")
+    @PostMapping(value = "/deleteMemory",produces = "text/html;charset=UTF-8")
+    public String deleteChatMemory(@RequestBody ChatForm form) {
+        mySQLChatMemoryStore.deleteMessages(form.getId());
+        return "success";
     }
 
 }
