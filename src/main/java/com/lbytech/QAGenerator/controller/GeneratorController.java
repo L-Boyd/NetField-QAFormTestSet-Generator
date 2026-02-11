@@ -3,7 +3,7 @@ package com.lbytech.QAGenerator.controller;
 import com.lbytech.QAGenerator.entity.dto.ChatForm;
 import com.lbytech.QAGenerator.repository.MySQLChatMemoryStore;
 import com.lbytech.QAGenerator.service.GeneratorAssistant;
-import com.lbytech.QAGenerator.service.GeneratorAssistantWithRag;
+import com.lbytech.QAGenerator.service.GeneratorAssistantWithNet;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,13 @@ public class GeneratorController {
     private GeneratorAssistant generatorAssistant;
 
     @Autowired
-    private GeneratorAssistantWithRag generatorAssistantWithRag;
+    private GeneratorAssistantWithNet generatorAssistantWithRag;
 
     @Autowired
     private MySQLChatMemoryStore mySQLChatMemoryStore;
+
+    @Autowired
+    private GeneratorAssistantWithNet generatorAssistantWithNet;
 
     @Operation(summary = "测试集生成（普通）")
     @PostMapping(value = "/generate",produces = "text/html;charset=UTF-8")
@@ -47,6 +50,12 @@ public class GeneratorController {
     public String deleteChatMemory(@RequestBody ChatForm form) {
         mySQLChatMemoryStore.deleteMessages(form.getId());
         return "success";
+    }
+
+    @Operation(summary = "测试集生成（联网搜索）")
+    @PostMapping(value = "/generateWithNet",produces = "text/html;charset=UTF-8")
+    public Flux<String> gengerateWithNet(@RequestBody ChatForm form) {
+        return generatorAssistantWithNet.chatByStream(form.getId(), form.getMessage());
     }
 
 }
