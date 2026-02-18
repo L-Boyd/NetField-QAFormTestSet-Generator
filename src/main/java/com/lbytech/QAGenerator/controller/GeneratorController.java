@@ -35,13 +35,13 @@ public class GeneratorController {
 
     @Operation(summary = "测试集生成（普通）")
     @PostMapping(value = "/generate",produces = "text/html;charset=UTF-8")
-    public Flux<String> gengerate(@RequestBody ChatForm form) {
+    public Flux<String> generate(@RequestBody ChatForm form) {
         return generatorAssistant.chatByStream(form.getId(), form.getMessage());
     }
 
     @Operation(summary = "测试集生成（rag）")
     @PostMapping(value = "/generateWithRag",produces = "text/html;charset=UTF-8")
-    public Flux<String> gengerateWithRg(@RequestBody ChatForm form) {
+    public Flux<String> generateWithRg(@RequestBody ChatForm form) {
         return generatorAssistantWithRag.chatByStream(form.getId(), form.getMessage());
     }
 
